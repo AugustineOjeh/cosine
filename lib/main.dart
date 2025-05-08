@@ -1,7 +1,10 @@
+import 'package:cosine/theme/app_theme.dart';
+import 'package:cosine/theme/brandmark.dart';
+import 'package:cosine/theme/text_styles.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const CosineApp());
 }
 
 /// Turn this to a stateful widget and auth state from here.
@@ -9,36 +12,53 @@ void main() {
 /// Move Material App styles to a different file [app_theme.dart].
 /// Keep this page clean.
 /// Maintain clean imports (one per module).
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class CosineApp extends StatefulWidget {
+  const CosineApp({super.key});
+
+  @override
+  State<CosineApp> createState() => _CosineAppState();
+}
+
+class _CosineAppState extends State<CosineApp> {
+  Widget? _home;
+  final String _version = '0.1.0';
+  final String _versionName = 'Alpha';
+
+  @override
+  void initState() {
+    super.initState();
+    _checkAuth();
+  }
+
+  void _checkAuth() async {
+    // Check for current user via Supabase
+
+    // Set the state of _home to login screen is user is null or home is user is valid.
+    setState(() => _home = null);
+  }
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Cosine',
-      theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true),
-      darkTheme: ThemeData(useMaterial3: true),
-      home: const SplashScreen(),
-    );
+        title: 'Cosine',
+        theme: AppTheme.lightMode,
+        darkTheme: AppTheme.darkMode,
+        home: _home ?? launch(context, _version, _versionName));
   }
 }
 
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
-
-  @override
-  State<SplashScreen> createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: Center(),
+Widget launch(BuildContext context, String version, String versionName) =>
+    Scaffold(
+      body: Center(
+          child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Image.asset(Brandmark.logo(context), height: 48, fit: BoxFit.contain),
+          Text(
+            '$version $versionName',
+            style: CustomTextStyle.label(context),
+          )
+        ],
+      )),
     );
-  }
-}
