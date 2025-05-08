@@ -6,6 +6,10 @@ class CustomColor {
       Theme.of(context).colorScheme.primary.withValues(alpha: opacity);
 
   ///
+  static Color onPrimary(BuildContext context, {double? opacity}) =>
+      Theme.of(context).colorScheme.onPrimary.withValues(alpha: opacity);
+
+  ///
   static Color secondary(BuildContext context, {double? opacity}) =>
       Theme.of(context).colorScheme.secondary.withValues(alpha: opacity);
 

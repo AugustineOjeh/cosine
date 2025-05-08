@@ -1,6 +1,9 @@
-class AppInit {
-  static final production = _Production();
-  static final development = _Development();
+import 'package:supabase_flutter/supabase_flutter.dart';
+
+class SupabaseInit {
+  static final prod = _Production();
+  static final dev = _Development();
+  static final instance = Supabase.instance.client;
 }
 
 /// Production creds

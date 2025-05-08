@@ -1,4 +1,3 @@
-import 'package:cosine/theme/app_init.dart';
 import 'package:cosine/theme/theme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -7,8 +6,8 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Supabase.initialize(
-    url: kReleaseMode ? AppInit.production.url : AppInit.development.url,
-    anonKey: kReleaseMode ? AppInit.production.key : AppInit.development.key,
+    url: kReleaseMode ? SupabaseInit.prod.url : SupabaseInit.dev.url,
+    anonKey: kReleaseMode ? SupabaseInit.prod.key : SupabaseInit.dev.key,
   );
   runApp(const CosineApp());
 }
