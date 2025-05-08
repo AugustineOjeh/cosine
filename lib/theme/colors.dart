@@ -31,10 +31,17 @@ class CustomColor {
 
   ///
   static Color border(BuildContext context, {double? opacity}) =>
-      Theme.of(context).colorScheme.onSurface.withValues(alpha: opacity ?? 0.2);
+      Theme.of(context).colorScheme.onSurface.withValues(alpha: opacity ?? 0.3);
 
   ///
   static Color bottomSheetBackground(BuildContext context, {double? opacity}) =>
+      Theme.of(context)
+          .colorScheme
+          .secondaryContainer
+          .withValues(alpha: opacity);
+
+  ///
+  static Color bottomSheetForeground(BuildContext context, {double? opacity}) =>
       Theme.of(context)
           .colorScheme
           .onSecondaryContainer
