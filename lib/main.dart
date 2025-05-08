@@ -7,11 +7,6 @@ void main() {
   runApp(const CosineApp());
 }
 
-/// Turn this to a stateful widget and auth state from here.
-/// Navigate home based on auth state.
-/// Move Material App styles to a different file [app_theme.dart].
-/// Keep this page clean.
-/// Maintain clean imports (one per module).
 class CosineApp extends StatefulWidget {
   const CosineApp({super.key});
 
