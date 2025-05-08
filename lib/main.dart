@@ -1,10 +1,16 @@
+import 'package:cosine/screens/auth_screen.dart';
+import 'package:cosine/screens/home_screen.dart';
 import 'package:cosine/theme/theme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // Handles splash screen
+  FlutterNativeSplash.preserve(
+      widgetsBinding: WidgetsFlutterBinding.ensureInitialized());
   await Supabase.initialize(
     url: kReleaseMode ? SupabaseInit.prod.url : SupabaseInit.dev.url,
     anonKey: kReleaseMode ? SupabaseInit.prod.key : SupabaseInit.dev.key,
@@ -21,8 +27,6 @@ class CosineApp extends StatefulWidget {
 
 class _CosineAppState extends State<CosineApp> {
   Widget? _home;
-  final String _version = '0.1.0';
-  final String _versionName = 'Alpha';
 
   @override
   void initState() {
@@ -31,10 +35,8 @@ class _CosineAppState extends State<CosineApp> {
   }
 
   void _checkAuth() async {
-    // Check for current user via Supabase
-
-    // Set the state of _home to login screen is user is null or home is user is valid.
-    setState(() => _home = null);
+    final session = SupabaseInit.instance.auth.currentSession;
+    setState(() => _home = session == null ? AuthScreen() : HomeScreen());
   }
 
   // This widget is the root of your application.
@@ -44,21 +46,6 @@ class _CosineAppState extends State<CosineApp> {
         title: 'Cosine',
         theme: AppTheme.lightMode,
         darkTheme: AppTheme.darkMode,
-        home: _home ?? launch(context, _version, _versionName));
+        home: _home);
   }
 }
-
-Widget launch(BuildContext context, String version, String versionName) =>
-    Scaffold(
-      body: Center(
-          child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Image.asset(Brandmark.logo(context), height: 48, fit: BoxFit.contain),
-          Text(
-            '$version $versionName',
-            style: CustomTextStyle.label(context),
-          )
-        ],
-      )),
-    );
