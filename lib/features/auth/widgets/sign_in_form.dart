@@ -22,7 +22,8 @@ class _SignInFormState extends State<SignInForm> {
   Timer? _debounceTimer;
 
   void _checkUser(String? value) async {
-    if (value == null || value.isEmpty) {
+    final emailRegex = RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$');
+    if (value == null || value.isEmpty || !emailRegex.hasMatch(value.trim())) {
       setState(() => _userExists = null);
       return;
     }
@@ -30,7 +31,7 @@ class _SignInFormState extends State<SignInForm> {
     _debounceTimer = Timer(Duration(seconds: 1), () async {
       setState(() => _checkingUser = true);
       try {
-        final res = await AuthService.checkEmailExistence(context, value);
+        final res = await AuthService.checkIfEmailExists(context, value);
         setState(() => _userExists = res);
       } finally {
         setState(() => _checkingUser = false);
@@ -64,7 +65,9 @@ class _SignInFormState extends State<SignInForm> {
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
                   suffix: _checkingUser
-                      ? const CupertinoActivityIndicator(radius: 6)
+                      ? CupertinoActivityIndicator(
+                          color: CustomColor.secondary(context, opacity: 0.5),
+                          radius: 6)
                       : _userExists == true
                           ? Icon(
                               Ionicons.checkmark_circle_outline,

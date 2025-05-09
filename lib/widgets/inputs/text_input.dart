@@ -14,7 +14,6 @@ class TextInput extends StatelessWidget {
       this.onChanged,
       this.placeholder,
       this.suffix,
-      this.onSuffixTap,
       this.maxLines,
       this.maxLength,
       super.key});
@@ -29,7 +28,6 @@ class TextInput extends StatelessWidget {
   final TextInputType? keyboardType;
   final TextCapitalization? textCapitalization;
   final Widget? suffix;
-  final VoidCallback? onSuffixTap;
   final int? maxLines;
   final int? maxLength;
 
@@ -50,12 +48,7 @@ class TextInput extends StatelessWidget {
         style: CustomTextStyle.bodyMedium(context),
         decoration: InputDecoration(
           isDense: true,
-          suffix: suffix == null
-              ? null
-              : GestureDetector(
-                  onTap: onSuffixTap,
-                  child: suffix,
-                ),
+          suffix: suffix,
           hintText: placeholder,
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 12, vertical: 14),

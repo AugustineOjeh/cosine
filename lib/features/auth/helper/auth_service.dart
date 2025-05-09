@@ -1,4 +1,6 @@
-import 'package:cosine/features/auth/helper/auth_navigate.dart';
+import 'package:cosine/features/auth/auth.dart';
+import 'package:cosine/theme/theme.dart';
+import 'package:cosine/utils/supabase_request.dart';
 import 'package:flutter/material.dart';
 
 class AuthService {
@@ -13,14 +15,21 @@ class AuthService {
     return null;
   }
 
-  static Future<bool> checkEmailExistence(
+  static Future<bool> checkIfEmailExists(
       BuildContext context, String value) async {
-    // Make supabase call.
-    return false;
+    final req = SupabaseInit.instance
+        .from('users')
+        .select()
+        .eq('email', value)
+        .single();
+    final res = await SupabaseRequest.req(context, req);
+    return res == null ? false : true;
   }
 
   static Future<void> signIn(BuildContext context, String email) async {
-    // Make supabase call.
+    final req = SupabaseInit.instance.auth.signInWithOtp(email: email);
+    final res = await SupabaseRequest.auth(context, req);
+    if (!res || !context.mounted) return;
     AuthNavigate.toVerification(context, email);
   }
 
