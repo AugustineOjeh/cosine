@@ -9,7 +9,9 @@ class TextInput extends StatelessWidget {
       this.isReadOnly = false,
       this.autocorrect = false,
       this.keyboardType,
+      this.onFieldSubmitted,
       this.textCapitalization,
+      this.textInputAction,
       this.initialValue,
       this.onChanged,
       this.placeholder,
@@ -23,9 +25,11 @@ class TextInput extends StatelessWidget {
   final bool isReadOnly;
   final bool autoFocus;
   final bool autocorrect;
+  final Function(String)? onFieldSubmitted;
   final String? initialValue;
   final String? placeholder;
   final TextInputType? keyboardType;
+  final TextInputAction? textInputAction;
   final TextCapitalization? textCapitalization;
   final Widget? suffix;
   final int? maxLines;
@@ -35,12 +39,16 @@ class TextInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
         controller: controller,
+        onTapOutside: (event) => FocusScope.of(context).unfocus(),
         autofocus: autoFocus,
         initialValue: initialValue,
+        cursorColor: CustomColor.secondary(context, opacity: 0.7),
         validator: validator,
         onChanged: onChanged,
         autocorrect: autocorrect,
+        textInputAction: textInputAction,
         keyboardType: keyboardType,
+        onFieldSubmitted: onFieldSubmitted,
         maxLength: maxLength,
         readOnly: isReadOnly,
         maxLines: maxLines ?? 1,

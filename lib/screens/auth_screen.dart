@@ -11,16 +11,16 @@ class AuthScreen extends StatefulWidget {
 class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
         body: SafeArea(
             child: SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         spacing: 16,
         children: [
           HeaderImage(),
           HeaderAndDescription(),
-          const SizedBox(height: 64),
+          SizedBox(height: 48),
           SignInForm(),
         ],
       ),

@@ -4,6 +4,7 @@ import 'package:cosine/theme/theme.dart';
 import 'package:cosine/widgets/widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
 class SignInForm extends StatefulWidget {
@@ -58,21 +59,31 @@ class _SignInFormState extends State<SignInForm> {
           key: _formKey,
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             spacing: 24,
             children: [
+              SizedBox(
+                  height: 14,
+                  // child: _userExists == false
+                  //     ? Text('No account found. Create one.',
+                  //         style: CustomTextStyle.bodySmall(context,
+                  //             color: CustomColor.error(context)))
+                  //     : null
+                      ),
               TextInput(
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
+                  textInputAction: TextInputAction.go,
+                  onFieldSubmitted: (_) => _submit(),
                   suffix: _checkingUser
                       ? CupertinoActivityIndicator(
-                          color: CustomColor.secondary(context, opacity: 0.5),
-                          radius: 6)
+                          color: CustomColor.secondary(context, opacity: 0.7),
+                          radius: 8)
                       : _userExists == true
                           ? Icon(
                               Ionicons.checkmark_circle_outline,
-                              size: 10,
-                              color: CustomColor.primary(context),
+                              size: 15,
+                              color: Colors.green,
                             )
                           : null,
                   onChanged: (value) => _checkUser(value),
@@ -82,21 +93,26 @@ class _SignInFormState extends State<SignInForm> {
                   text: _userExists == false ? 'Create account' : 'Continue',
                   isLoading: _submiting,
                   onTap: _submit),
-              RichText(
-                  textAlign: TextAlign.center,
-                  text: TextSpan(
-                      style: CustomTextStyle.label(
-                        context,
-                      ),
-                      children: [
-                        TextSpan(text: 'By using Cosine, you agree to the '),
-                        TextSpan(
-                            text: 'Terms.',
-                            recognizer: TapGestureRecognizer()..onTap = () {},
-                            style: CustomTextStyle.label(context,
-                                weight: CustomFontWeight.semiBold,
-                                color: CustomColor.headline(context))),
-                      ]))
+              SizedBox(
+                width: double.infinity,
+                child: RichText(
+                    textAlign: TextAlign.center,
+                    text: TextSpan(
+                        style: CustomTextStyle.bodySmall(
+                          context,
+                        ),
+                        children: [
+                          TextSpan(text: 'By using Cosine, you agree to the '),
+
+                          // TODO: Add link to Terms and Condition page
+                          TextSpan(
+                              text: 'Terms.',
+                              recognizer: TapGestureRecognizer()..onTap = () {},
+                              style: CustomTextStyle.bodySmall(context,
+                                  weight: CustomFontWeight.semiBold,
+                                  color: CustomColor.headline(context))),
+                        ])),
+              )
             ],
           )),
     );

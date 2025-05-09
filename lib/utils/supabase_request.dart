@@ -24,7 +24,7 @@ class SupabaseRequest {
     }
   }
 
-  static Future<bool> auth(BuildContext context, Future<void> req) async {
+  static Future<bool> auth(BuildContext context, Future<dynamic> req) async {
     try {
       await req;
       return true;
@@ -44,6 +44,10 @@ class SupabaseRequest {
     } on HttpException catch (e) {
       if (!context.mounted) return false;
       CustomSnackbar.main(context, 'HTTP error: ${e.message}');
+      return false;
+    } on AuthApiException catch (e) {
+      if (!context.mounted) return false;
+      CustomSnackbar.main(context, e.message.toString());
       return false;
     } catch (e) {
       if (!context.mounted) return false;

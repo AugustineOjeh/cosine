@@ -58,6 +58,7 @@ class _DateInputState extends State<DateInput> {
         controller: widget.controller,
         initialValue: widget.initialValue,
         validator: widget.validator,
+        onTapOutside: (event) => FocusScope.of(context).unfocus(),
         onChanged: widget.onChanged,
         onTap: () => _pickDate(context),
         maxLines: 1,

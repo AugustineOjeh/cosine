@@ -1,7 +1,10 @@
+import 'dart:io';
 import 'package:cosine/features/auth/auth.dart';
 import 'package:cosine/theme/theme.dart';
 import 'package:cosine/utils/supabase_request.dart';
+import 'package:cosine/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthService {
   static String? validateEmail(String? value) {
@@ -15,15 +18,25 @@ class AuthService {
     return null;
   }
 
-  static Future<bool> checkIfEmailExists(
+  static Future<bool?> checkIfEmailExists(
       BuildContext context, String value) async {
-    final req = SupabaseInit.instance
-        .from('users')
-        .select()
-        .eq('email', value)
-        .single();
-    final res = await SupabaseRequest.req(context, req);
-    return res == null ? false : true;
+    try {
+      final res = await SupabaseInit.instance
+          .from('users')
+          .select()
+          .eq('email', value)
+          .single();
+      return res.isNotEmpty ? true : false;
+    } on PostgrestException {
+      return false;
+    } on SocketException {
+      if (!context.mounted) return null;
+      CustomSnackbar.main(
+          context, 'No internet connection. Check your network.');
+      return null;
+    } catch (e) {
+      return null;
+    }
   }
 
   static Future<void> signIn(BuildContext context, String email) async {
@@ -35,7 +48,17 @@ class AuthService {
 
   static Future<void> verifyToken(
       BuildContext context, String email, String token) async {
-    // Make supabase call.
+    final req = SupabaseInit.instance.auth
+        .verifyOTP(type: OtpType.email, email: email, token: token);
+    final res = await SupabaseRequest.auth(context, req);
+    final session = SupabaseInit.instance.auth.currentSession;
+    if (!res || !context.mounted || session == null) return;
     AuthNavigate.toHome(context);
+  }
+
+  static Future<void> signOut(BuildContext context) async {
+    await SupabaseInit.instance.auth.signOut();
+    if (!context.mounted) return;
+    AuthNavigate.leaveApp(context);
   }
 }
