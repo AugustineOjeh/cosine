@@ -76,7 +76,7 @@ class AppTheme {
       ),
       labelMedium: TextStyle(
         fontSize: 12,
-        fontWeight: CustomFontWeight.semiBold,
+        fontWeight: CustomFontWeight.medium,
         color: Color(0xFF333333),
       ),
     ),
@@ -85,7 +85,7 @@ class AppTheme {
   );
 
   static ThemeData darkMode = ThemeData(
-    scaffoldBackgroundColor: const Color(0xFFFFFFFF),
+    scaffoldBackgroundColor: const Color(0xFF000000),
     fontFamily: 'Inter',
     fontFamilyFallback: const ['Roboto'],
     colorScheme: const ColorScheme(
@@ -158,7 +158,7 @@ class AppTheme {
       ),
       labelMedium: TextStyle(
         fontSize: 12,
-        fontWeight: CustomFontWeight.semiBold,
+        fontWeight: CustomFontWeight.medium,
         color: Color(0xFFE3E3E3),
       ),
     ),

@@ -37,6 +37,7 @@ class _CosineAppState extends State<CosineApp> {
   void _checkAuth() async {
     final session = SupabaseInit.instance.auth.currentSession;
     setState(() => _home = session == null ? AuthScreen() : HomeScreen());
+    FlutterNativeSplash.remove();
   }
 
   // This widget is the root of your application.
@@ -44,6 +45,7 @@ class _CosineAppState extends State<CosineApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'Cosine',
+        debugShowCheckedModeBanner: false,
         theme: AppTheme.lightMode,
         darkTheme: AppTheme.darkMode,
         home: _home);

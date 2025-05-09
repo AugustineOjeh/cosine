@@ -1,4 +1,4 @@
-import 'package:cosine/theme/theme.dart';
+import 'package:cosine/features/auth/auth.dart';
 import 'package:flutter/material.dart';
 
 class AuthScreen extends StatefulWidget {
@@ -12,13 +12,18 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text(
-          'Auth Screen!',
-          style: CustomTextStyle.headlineMedium(context),
-          textAlign: TextAlign.center,
-        ),
+        body: SafeArea(
+            child: SingleChildScrollView(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Column(
+        spacing: 16,
+        children: [
+          HeaderImage(),
+          HeaderAndDescription(),
+          const SizedBox(height: 64),
+          SignInForm(),
+        ],
       ),
-    );
+    )));
   }
 }

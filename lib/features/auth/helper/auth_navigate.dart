@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class AuthNavigate {
-  static void toVerification(BuildContext context) => Navigator.push(
-      context, MaterialPageRoute(builder: (context) => Placeholder()));
+  static void toVerification(BuildContext context, String email) =>
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => Placeholder()));
 
   static void toHome(BuildContext context) {
     // Fetch user data to check for first and last name values.

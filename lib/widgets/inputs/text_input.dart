@@ -7,6 +7,7 @@ class TextInput extends StatelessWidget {
       this.validator,
       this.autoFocus = false,
       this.isReadOnly = false,
+      this.autocorrect = false,
       this.keyboardType,
       this.textCapitalization,
       this.initialValue,
@@ -22,6 +23,7 @@ class TextInput extends StatelessWidget {
   final void Function(String?)? onChanged;
   final bool isReadOnly;
   final bool autoFocus;
+  final bool autocorrect;
   final String? initialValue;
   final String? placeholder;
   final TextInputType? keyboardType;
@@ -39,6 +41,7 @@ class TextInput extends StatelessWidget {
         initialValue: initialValue,
         validator: validator,
         onChanged: onChanged,
+        autocorrect: autocorrect,
         keyboardType: keyboardType,
         maxLength: maxLength,
         readOnly: isReadOnly,

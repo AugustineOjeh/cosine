@@ -71,6 +71,8 @@ flutter:
     - lib/assets/images/student_image_paceholder.png
     - lib/assets/images/splash_dark.png
     - lib/assets/images/splash_light.png
+    - lib/assets/images/auth-image-dark.jpg
+    - lib/assets/images/auth-image-light.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
