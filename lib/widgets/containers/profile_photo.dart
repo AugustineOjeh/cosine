@@ -76,7 +76,6 @@ class ProfilePhoto {
   static Widget small(BuildContext context,
           {required String? image,
           required bool isUserImage,
-          required bool userCanEdit,
           VoidCallback? onTap}) =>
       GestureDetector(
         onTap: onTap,
@@ -101,7 +100,6 @@ class ProfilePhoto {
   static Widget extraSmall(BuildContext context,
           {required String? image,
           required bool isUserImage,
-          required bool userCanEdit,
           VoidCallback? onTap}) =>
       GestureDetector(
         onTap: onTap,

@@ -4,10 +4,13 @@ import 'package:flutter/material.dart';
 class CustomAppbar {
   /// This [AppBar] has the [Cosine] logo at the top right corner.
   /// Leading [Back] button is automatically implied.
-  static AppBar branded(BuildContext context) => AppBar(
+  static AppBar branded(BuildContext context,
+          {bool leftAlignLogo = false, List<Widget>? actions}) =>
+      AppBar(
         forceMaterialTransparency: true,
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment:
+              leftAlignLogo ? MainAxisAlignment.start : MainAxisAlignment.end,
           children: [
             Image.asset(
               Brandmark.logo(context),
@@ -16,6 +19,7 @@ class CustomAppbar {
             )
           ],
         ),
+        actions: actions,
       );
 
   /// This [AppBar] doesn't have the [Cosine] branding.

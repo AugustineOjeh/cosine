@@ -34,10 +34,7 @@ class PrimaryButton extends StatelessWidget {
                 CustomColor.primary(context, opacity: isDisabled ? 0.5 : null),
           ),
           child: isLoading
-              ? CupertinoActivityIndicator(
-                  radius: 8,
-                  color: CustomColor.secondary(context, opacity: 0.6),
-                )
+              ? CupertinoActivityIndicator(radius: 8, color: Colors.white70)
               : Text(
                   text,
                   style: CustomTextStyle.bodyMedium(context,

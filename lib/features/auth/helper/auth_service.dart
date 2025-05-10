@@ -61,8 +61,7 @@ class AuthService {
       BuildContext context, String userId) async {
     final req =
         SupabaseInit.instance.from('profiles').select().eq('user_id', userId);
-    return await SupabaseRequest.req(context, req)
-        as List<Map<String, dynamic>>?;
+    return await SupabaseRequest.req(context, req);
   }
 
   static Future<void> signOut(BuildContext context) async {

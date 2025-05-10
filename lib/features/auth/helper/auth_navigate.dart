@@ -9,7 +9,7 @@ class AuthNavigate {
   static void toVerification(BuildContext context, String email) =>
       CustomNavigate.push(context, EmailVerificationScreen(email: email));
 
-  static void toHome(BuildContext context) async {
+  static Future<void> toHome(BuildContext context) async {
     final user = SupabaseInit.instance.auth.currentUser;
     if (user == null) return;
     final meta = user.userMetadata;
@@ -17,13 +17,13 @@ class AuthNavigate {
         meta!['first_name'].toString().trim().isNotEmpty;
     final hasLastName = meta?['last_name'] != null &&
         meta!['last_name'].toString().trim().isNotEmpty;
-    if (!(hasLastName && hasFirstName)) {
-      CustomNavigate.noReturn(context, UserOnboardingScreen());
+    if (!(hasLastName || hasFirstName)) {
+      CustomNavigate.noReturn(context, UserOnboardingScreen(userId: user.id));
       return;
     } else {
       final res = await AuthService.fetchProfiles(context, user.id);
       if (res != null && res.isEmpty && context.mounted) {
-        CustomNavigate.noReturn(context, LobbyScreen());
+        CustomNavigate.noReturn(context, LobbyScreen(userId: user.id));
         return;
       }
       if (res != null && res.isNotEmpty) {

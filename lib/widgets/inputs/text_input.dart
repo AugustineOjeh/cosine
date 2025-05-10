@@ -13,6 +13,7 @@ class TextInput extends StatelessWidget {
       this.textCapitalization,
       this.textInputAction,
       this.initialValue,
+      this.autofillHints,
       this.onChanged,
       this.placeholder,
       this.suffix,
@@ -27,6 +28,7 @@ class TextInput extends StatelessWidget {
   final bool autocorrect;
   final Function(String)? onFieldSubmitted;
   final String? initialValue;
+  final Iterable<String>? autofillHints;
   final String? placeholder;
   final TextInputType? keyboardType;
   final TextInputAction? textInputAction;
@@ -49,10 +51,16 @@ class TextInput extends StatelessWidget {
         textInputAction: textInputAction,
         keyboardType: keyboardType,
         onFieldSubmitted: onFieldSubmitted,
+        autofillHints: autofillHints,
         maxLength: maxLength,
         readOnly: isReadOnly,
         maxLines: maxLines ?? 1,
         enableSuggestions: true,
+        buildCounter: (BuildContext context,
+                {required int currentLength,
+                required int? maxLength,
+                required bool isFocused}) =>
+            null,
         style: CustomTextStyle.bodyMedium(context),
         decoration: InputDecoration(
           isDense: true,

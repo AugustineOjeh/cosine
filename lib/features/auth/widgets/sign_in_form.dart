@@ -63,17 +63,18 @@ class _SignInFormState extends State<SignInForm> {
             spacing: 24,
             children: [
               SizedBox(
-                  height: 14,
-                  // child: _userExists == false
-                  //     ? Text('No account found. Create one.',
-                  //         style: CustomTextStyle.bodySmall(context,
-                  //             color: CustomColor.error(context)))
-                  //     : null
-                      ),
+                height: 14,
+                // child: _userExists == false
+                //     ? Text('No account found. Create one.',
+                //         style: CustomTextStyle.bodySmall(context,
+                //             color: CustomColor.error(context)))
+                //     : null
+              ),
               TextInput(
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
-                  textInputAction: TextInputAction.go,
+                  textInputAction: TextInputAction.done,
+                  autofillHints: const [AutofillHints.email],
                   onFieldSubmitted: (_) => _submit(),
                   suffix: _checkingUser
                       ? CupertinoActivityIndicator(

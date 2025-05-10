@@ -1,4 +1,4 @@
-import 'package:cosine/models/models.dart';
+import 'package:cosine/features/user/user.dart';
 
 class School {
   final String id;

@@ -1,3 +1,4 @@
+import 'package:cosine/features/user/user.dart';
 import 'package:cosine/models/models.dart';
 
 class Profile {
