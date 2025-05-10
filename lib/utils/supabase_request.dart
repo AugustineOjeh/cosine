@@ -5,8 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SupabaseRequest {
-  static Future<dynamic> req(
-      BuildContext context, PostgrestTransformBuilder req) async {
+  static Future req(BuildContext context, PostgrestTransformBuilder req) async {
     try {
       return await req;
     } on PostgrestException catch (e) {
