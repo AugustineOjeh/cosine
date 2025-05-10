@@ -68,6 +68,22 @@ class ProfilePhoto {
                     : NetworkImage(image),
                 fit: BoxFit.contain),
           ),
+          child: !userCanEdit
+              ? null
+              : Container(
+                  padding: EdgeInsets.all(12),
+                  width: 32,
+                  height: 32,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: CustomColor.border(context),
+                  ),
+                  child: Icon(
+                    Ionicons.camera_outline,
+                    size: 24,
+                    color: CustomColor.background(context, opacity: 0.4),
+                  ),
+                ),
         ),
       );
 

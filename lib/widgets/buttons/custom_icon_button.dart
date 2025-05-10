@@ -6,7 +6,7 @@ class CustomIconButton extends StatelessWidget {
       {required this.onTap,
       this.color,
       required this.icon,
-      this.iconSize,
+      this.iconSize = 24,
       super.key});
   final VoidCallback onTap;
   final Color? color;
@@ -17,7 +17,7 @@ class CustomIconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
         visualDensity: VisualDensity.compact,
-        iconSize: iconSize ?? 24,
+        iconSize: iconSize,
         focusColor: Colors.transparent,
         hoverColor: Colors.transparent,
         onPressed: onTap,

@@ -17,7 +17,7 @@ class AppTheme {
       surface: Color(0xFFFFFFFF), // Scaffold background color
       onSurface: Color(0xFF111111), // Headline text color
       primaryContainer: Color(0xFFE5E5E5), // Container to group data together
-      secondaryContainer: Color(0xFF000000), // Background for bottom sheets
+      secondaryContainer: Color(0xFF0E0E1A), // Background for bottom sheets
       onSecondaryFixed: Color(0xFF333333), // Body text color
       onSecondaryContainer:
           Color(0xFFFFFFFF), // Background for containers in Bottom Sheets

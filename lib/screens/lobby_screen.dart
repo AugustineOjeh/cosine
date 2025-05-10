@@ -1,5 +1,6 @@
 import 'package:cosine/features/lobby/widgets/invitation_container.dart';
 import 'package:cosine/features/user/user.dart';
+import 'package:cosine/features/user/widgets/profile_picture_botton.dart';
 import 'package:cosine/theme/theme.dart';
 import 'package:cosine/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -28,13 +29,16 @@ class _LobbyScreenState extends ConsumerState<LobbyScreen> {
   Widget build(BuildContext context) {
     final user = ref.watch(userProvider);
     return Scaffold(
-      appBar: CustomAppbar.branded(context, leftAlignLogo: true, actions: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: ProfilePhoto.small(context,
-              image: user?.image, isUserImage: true, onTap: () {}),
-        )
-      ]),
+      appBar: CustomAppbar.branded(context,
+          implyLeading: false,
+          leftAlignLogo: true,
+          actions: [
+            if (user != null)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: ProfilePictureBotton(user: user, isOwnProfile: true),
+              )
+          ]),
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 30),

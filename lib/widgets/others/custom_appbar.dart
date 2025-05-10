@@ -5,9 +5,12 @@ class CustomAppbar {
   /// This [AppBar] has the [Cosine] logo at the top right corner.
   /// Leading [Back] button is automatically implied.
   static AppBar branded(BuildContext context,
-          {bool leftAlignLogo = false, List<Widget>? actions}) =>
+          {bool leftAlignLogo = false,
+          List<Widget>? actions,
+          bool implyLeading = true}) =>
       AppBar(
         forceMaterialTransparency: true,
+        automaticallyImplyLeading: implyLeading,
         title: Row(
           mainAxisAlignment:
               leftAlignLogo ? MainAxisAlignment.start : MainAxisAlignment.end,

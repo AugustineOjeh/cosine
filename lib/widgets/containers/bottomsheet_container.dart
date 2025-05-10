@@ -5,20 +5,24 @@ import 'package:ionicons/ionicons.dart';
 
 class BottomsheetContainer extends StatelessWidget {
   const BottomsheetContainer(
-      {this.bottomChildren, this.topChild, required this.title, super.key});
+      {this.bottomChildren,
+      this.topChild,
+      required this.title,
+      this.action,
+      super.key});
 
   /// The widget that stays on the top of the bottomsheet,
   /// Where background contrasts with [scaffoldBackground].
   /// [pop] navigation already added alongside the title widget, simply provide [title]
-  /// NOTE: This part is non-scrollable. Don't add [SingleChildScrollView].
   final Widget? topChild;
+
+  final Widget? action;
 
   /// The widget that stays on the bottom of the bottomsheet,
   /// beneath the high contrast top section.
   /// The background of this part is consistent with [scaffoldBackground].
   /// The holding container is already provided.
   /// Simply provide a child widget, ideally a [Column].
-  /// NOTE: [SingleChildScrollView] already included. Don't add another.
   final List<Widget>? bottomChildren;
   final String title;
 
@@ -37,7 +41,7 @@ class BottomsheetContainer extends StatelessWidget {
         spacing: 32,
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 24, right: 48),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
             child: Row(
               children: [
                 CustomIconButton(
@@ -47,9 +51,11 @@ class BottomsheetContainer extends StatelessWidget {
                 Expanded(
                     child: Text(
                   title,
-                  style: CustomTextStyle.headlineSmall(context),
+                  style: CustomTextStyle.headlineSmall(context,
+                      color: CustomColor.bottomSheetForeground(context)),
                   textAlign: TextAlign.center,
-                ))
+                )),
+                SizedBox(width: 40, child: action)
               ],
             ),
           ),
@@ -67,9 +73,10 @@ class BottomsheetContainer extends StatelessWidget {
                       topRight: Radius.circular(16))),
               child: SafeArea(
                   top: false,
-                  child: SingleChildScrollView(
-                      padding: const EdgeInsets.all(24),
+                  child: Padding(
+                      padding: const EdgeInsets.fromLTRB(24, 24, 24, 12),
                       child: Column(
+                        spacing: 12,
                         mainAxisSize: MainAxisSize.min,
                         children: bottomChildren!,
                       ))),
