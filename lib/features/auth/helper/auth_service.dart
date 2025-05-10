@@ -1,7 +1,8 @@
 import 'dart:io';
 import 'package:cosine/features/auth/auth.dart';
+import 'package:cosine/screens/screens.dart';
 import 'package:cosine/theme/theme.dart';
-import 'package:cosine/utils/supabase_request.dart';
+import 'package:cosine/utils/utils.dart';
 import 'package:cosine/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -56,9 +57,17 @@ class AuthService {
     AuthNavigate.toHome(context);
   }
 
+  static Future<List<Map<String, dynamic>>?> fetchProfiles(
+      BuildContext context, String userId) async {
+    final req =
+        SupabaseInit.instance.from('profiles').select().eq('user_id', userId);
+    return await SupabaseRequest.req(context, req)
+        as List<Map<String, dynamic>>?;
+  }
+
   static Future<void> signOut(BuildContext context) async {
     await SupabaseInit.instance.auth.signOut();
     if (!context.mounted) return;
-    AuthNavigate.leaveApp(context);
+    CustomNavigate.noReturn(context, AuthScreen());
   }
 }
