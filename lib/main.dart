@@ -1,5 +1,5 @@
-import 'package:cosine/screens/auth_screen.dart';
-import 'package:cosine/screens/home_screen.dart';
+import 'package:cosine/features/auth/auth.dart';
+import 'package:cosine/screens/screens.dart';
 import 'package:cosine/theme/theme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +36,11 @@ class _CosineAppState extends State<CosineApp> {
 
   void _checkAuth() async {
     final session = SupabaseInit.instance.auth.currentSession;
-    setState(() => _home = session == null ? AuthScreen() : HomeScreen());
+    if (session == null) {
+      setState(() => _home = AuthScreen());
+    } else {
+      AuthNavigate.toHome(context);
+    }
     FlutterNativeSplash.remove();
   }
 

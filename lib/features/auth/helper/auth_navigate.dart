@@ -1,8 +1,7 @@
-// import 'package:cosine/models/models.dart';
-import 'package:cosine/screens/lobby_screen.dart';
+import 'package:cosine/models/models.dart';
 import 'package:cosine/screens/screens.dart';
 import 'package:cosine/theme/app_init.dart';
-import 'package:cosine/utils/supabase_request.dart';
+import 'package:cosine/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 class AuthNavigate {
@@ -40,23 +39,19 @@ class AuthNavigate {
             (route) => false);
         return;
       }
-      if (res != null && res.isNotEmpty && context.mounted) {
-        // Find active profile from sharedPreferences.
-        
+      if (res != null && res.isNotEmpty) {
+        final profiles = res.map((a) => Profile.fromJson(a)).toList();
+        final savedProfileId = await SharedPrefs.retrieveActiveProfile();
+        final activeProfile = profiles.firstWhere((a) => a.id == savedProfileId,
+            orElse: () => profiles.first);
+        if (!context.mounted) return;
         Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (context) => HomeScreen()),
+            MaterialPageRoute(
+                builder: (context) => HomeScreen(profileId: activeProfile.id)),
             (route) => false);
       }
     }
-
-    // Fetch user data to check for first and last name values.
-    // If name is empty, navigate to user onboarding (no return allowed).
-    // If name is not empty, check for existing profiles.
-    // If profiles is empty, go to Lobby (no return allowed)
-    // If profile is not empty, check for active profile in SharedPreference
-    // If active profile is found, navigate to Home with active profile.
-    // If no active profile is found, navigate to Home with first profile and save to sharedPreference in init.
   }
 
   static void leaveApp(BuildContext context) => Navigator.pushAndRemoveUntil(

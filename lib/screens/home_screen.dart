@@ -1,11 +1,12 @@
 import 'package:cosine/features/auth/auth.dart';
 import 'package:cosine/theme/theme.dart';
+import 'package:cosine/utils/utils.dart';
 import 'package:cosine/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
-  // final String profileId;
+  const HomeScreen({required this.profileId, super.key});
+  final String profileId;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -15,6 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    _setActiveProfile();
   }
 
   @override
@@ -42,4 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
+  void _setActiveProfile() async =>
+      await SharedPrefs.saveActiveProfile(widget.profileId);
 }
